@@ -39,6 +39,8 @@ int main(void) {
 			.validators = {checkyesno}}, " %c", &yesno)) {
 		goto end;
 	}
+	
+	// Show summary if user requested it
 	if (toupper(yesno) == 'Y') {
 		printf("You entered a time of %02d:%02d\n", hr, min);
 		printf("Your age is %d\n", age);
@@ -48,10 +50,16 @@ int main(void) {
 		printf("No summary requested. Bye.\n");
 	}
 	return EXIT_SUCCESS;
+	
+	// Jump here in case user terminated the input
 end:
 	printf("User terminated the input process.\n");
 	return EXIT_FAILURE;
 }
+
+/*----------------------------------------------------------------------------*/
+// Define validation functions
+/*----------------------------------------------------------------------------*/
 
 bool checkhours(const void *ans) {
 	const int *hour = ans;
@@ -81,12 +89,7 @@ bool checkyesno(const void *ans) {
 	return false;
 }
 
-bool is_leap_year(int y) { 
-	if (y % 400 == 0) return true;
-	if (y % 100 == 0) return false;
-	if (y % 4 == 0) return true;
-	return false;
-}
+bool is_leap_year(int year);
 
 bool datecheck(size_t count, const void *args[count]) {
 	if (count != 3)
@@ -114,4 +117,11 @@ bool datecheck(size_t count, const void *args[count]) {
 		return false;
 	}
 	return true;
+}
+
+bool is_leap_year(int y) { 
+	if (y % 400 == 0) return true;
+	if (y % 100 == 0) return false;
+	if (y % 4 == 0) return true;
+	return false;
 }

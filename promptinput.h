@@ -1,5 +1,5 @@
 /** @file promptinput.h
- * Header file for promptinput
+ * Promptinput - read input from user and provide input error handling
  *
  * Promptinput provides a wrapper around printf, fgets and sscanf which 
  * collectively print a prompt, read and process input according to a 
