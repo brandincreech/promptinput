@@ -1,0 +1,24 @@
+#
+# Begin Makefile
+# Compiler used: MinGW with MSYS
+#
+OPT=-O3 -mtune=pentium4
+DEFINES=-DTEST
+STRIP=-s
+CFLAGS=$(OPT) -Wall -Wextra -Werror -pedantic -std=c99 $(DEFINES) $(STRIP)
+CXXFLAGS=$(OPT) -Wall -Wextra -Werror -pedantic -std=c++11 $(DEFINES) $(STRIP)
+OBJS=promptinput.o
+CLIBS=
+CXXLIBS=
+
+.PHONY: default
+default:
+	@echo Usage: make [clean] PROGRAM.exe
+
+%.exe: %.c \
+       $(OBJS)	
+	gcc $(CFLAGS) -o $@ $< $(OBJS) $(CLIBS)
+
+.PHONY: clean
+clean:
+	rm -vf *.exe *.o
