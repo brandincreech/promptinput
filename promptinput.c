@@ -21,7 +21,7 @@ bool promptinput_(PROMPTINPUT_S p, const char *fmt, ...) {
 		if (*c == '%') {
 			if (*(c+1) == '*')
 				;
-			else if (*(c+1) == '%')
+			else if (*(c+1) == '%') // XXX What if format string contains "... %% ..."? The first % will be ignored by this line, but then in the next loop iteration, the second '%' will be incorrectly counted as a format specifier.
 				;
 			else
 				count++;
