@@ -67,15 +67,17 @@ bool promptinput_(PROMPTINPUT_S p, const char *fmt, ...) {
 			void *arg = va_arg(ap, void*);
 			if (p.validators[i] && !(p.validators[i](arg))) {
 				show_error = true;
-				break;
+				va_end(ap);
+				goto done;
 			}
 			all_args[i] = arg;
 		}
 		va_end(ap);
 		// Check all arguments through the all_validator if appropriate
-		if (!show_error) {
-			if (p.all_validator && !(p.all_validator((size_t)count, 
-					(const void**)all_args))) {
+		if (p.all_validator) {
+			size_t ct = count;
+			const void **aa = all_args;
+			if (!(p.all_validator(ct, aa))) {
 				show_error = true;
 			}
 		}
